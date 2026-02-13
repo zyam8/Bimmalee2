@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Valentine 💖</title>
+    <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --soft-pink: #ffccd5;
+            --dark-pink: #d63384;
+            --bg-gradient: linear-gradient(135deg, #fff5f5, #ffccd5);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            color: var(--dark-pink);
+        }
+
+        /* වැටෙන හදවත් Animation */
+        .heart-particle {
+            position: absolute;
+            color: var(--primary-pink);
+            font-size: 20px;
+            z-index: 0;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(214, 51, 132, 0.2);
+            width: 85%;
+            max-width: 450px;
+            z-index: 10;
+            position: relative;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.5s ease;
+        }
+
+        h1 { margin-bottom: 20px; font-size: 26px; font-weight: 800; }
+        h2 { font-size: 20px; margin-bottom: 20px; }
+        p { font-size: 16px; color: #555; line-height: 1.5; }
+
+        .btn {
+            padding: 14px 35px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 50px;
+            margin-top: 15px;
+            transition: 0.3s;
+            color: white;
+            font-weight: bold;
+            background: var(--primary-pink);
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+            display: inline-block;
+        }
+        .btn:hover { transform: translateY(-3px) scale(1.05); background-color: #ff2a55; }
+        .btn:active { transform: scale(0.95); }
+
+        .options { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        .option-btn {
+            width: 100%;
+            background: white; 
+            border: 2px solid var(--soft-pink); 
+            color: var(--dark-pink);
+            padding: 12px; 
+            border-radius: 15px; 
+            cursor: pointer; 
+            transition: 0.2s;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .option-btn:hover { background: var(--soft-pink); border-color: var(--primary-pink); }
+
+        .hidden { display: none; opacity: 0; transform: scale(0.9); }
+        
+        img {
+            width: 100%;
+            max-height: 220px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border: 5px solid white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Filling Heart Styles */
+        .heart-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 25px auto;
+            cursor: pointer;
+            touch-action: none;
+        }
+        .heart-outline {
+            fill: none;
+            stroke: var(--primary-pink);
+            stroke-width: 1.5;
+        }
+        .heart-fill-path {
+            fill: var(--primary-pink);
+            clip-path: inset(100% 0 0 0);
+            transition: clip-path 2s linear;
+        }
+        .filling .heart-fill-path {
+            clip-path: inset(0% 0 0 0);
+        }
+
+        #dateInput {
+            padding: 12px; 
+            border-radius: 12px; 
+            border: 2px solid var(--soft-pink); 
+            width: 80%;
+            font-size: 16px;
+            outline: none;
+            text-align: center;
+        }
+
+        .letter-content {
+            text-align: left; 
+            font-size: 15px; 
+            background: rgba(255,255,255,0.5); 
+            padding: 15px; 
+            border-radius: 15px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="hearts-container"></div>
+
+    <div id="screen-intro" class="container">
+        <h1>Hi My Love! 👋</h1>
+        <p>I have a little surprise for you... <br>Are you ready to walk down memory lane?</p>
+        <button class="btn" onclick="nextScreen('screen-q1')">Let's Go! 🚀</button>
+    </div>
+
+    <div id="screen-q1" class="container hidden">
+        <img src="https://i.postimg.cc/DfRJzFK9/Whisk-57b934d254423f28e804e49fac77aa75dr.jpg" alt="Meet">
+        <h2>When did we first meet? 🤔</h2>
+        <div class="options">
+            <button class="option-btn" onclick="wrongAnswer()">August 20, 2025</button>
+            <button class="option-btn" onclick="nextScreen('screen-q2')">August 19, 2025</button>
+            <button class="option-btn" onclick="wrongAnswer()">August 18, 2025</button>
+        </div>
+    </div>
+
+    <div id="screen-q2" class="container hidden">
+        <img src="https://i.postimg.cc/1Xgfm7t7/Whisk-af0d53633203abbbaaa4c4cc4ca96205dr.jpg">
+        <h2>What was our first meal? 🍕</h2>
+        <div class="options">
+            <button class="option-btn" onclick="nextScreen('screen-q3')">US 😜</button>
+            <button class="option-btn" onclick="wrongAnswer()">Burger</button>
+            <button class="option-btn" onclick="wrongAnswer()">Pasta</button>
+        </div>
+    </div>
+
+    <div id="screen-q3" class="container hidden">
+        <img src="https://i.postimg.cc/mkBnYKx3/Whisk-6ccf948da45ea4394e746fe3182ef54ddr.jpg">
+        <h2>When was this photo taken? 📸</h2>
+        <p style="font-size: 13px;">මතකද දවස? හරියටම තෝරන්න...</p>
+        <div class="options">
+            <input type="date" id="dateInput">
+            <button class="btn" onclick="checkDate()">Check Date ✔️</button>
+        </div>
+    </div>
+
+    <div id="screen-proposal" class="container hidden">
+        <h1>Will you be my Valentine? 🌹</h1>
+        <p>Hug me until overflows</p>
+        
+        <div id="main-heart" class="heart-container" 
+             onmousedown="startFilling()" onmouseup="stopFilling()" 
+             ontouchstart="startFilling()" ontouchend="stopFilling()">
+            <svg viewBox="0 0 32 32" width="140" height="140">
+                <path class="heart-outline" d="M16,28.261c-0.757,0-1.514-0.297-2.091-0.891C8.31,21.841,0,14.733,0,9.088C0,4.066,4.066,0,9.088,0 c3.003,0,5.706,1.458,7.375,3.751C18.132,1.458,20.835,0,23.838,0C28.86,0,32,4.066,32,9.088c0,5.645-8.31,12.753-13.909,18.282 C17.514,27.964,16.757,28.261,16,28.261z"/>
+                <path id="heart-fill-path" class="heart-fill-path" d="M16,28.261c-0.757,0-1.514-0.297-2.091-0.891C8.31,21.841,0,14.733,0,9.088C0,4.066,4.066,0,9.088,0 c3.003,0,5.706,1.458,7.375,3.751C18.132,1.458,20.835,0,23.838,0C28.86,0,32,4.066,32,9.088c0,5.645-8.31,12.753-13.909,18.282 C17.514,27.964,16.757,28.261,16,28.261z"/>
+            </svg>
+        </div>
+    </div>
+
+    <div id="screen-letter" class="container hidden">
+        <h1>Yay! I Knew It! 🎉</h1>
+        <img src="https://i.postimg.cc/HnvgvT9Q/photo-2026-02-13-15-32-51.jpg">
+        <div class="letter-content">
+            <p><b>To My Beautiful Girl,</b></p>
+            <p>You have a heart far too pure for this world. I promise to protect it for as long as I breathe.</p>
+            <p>You are my joy, my comfort, and my peace. Even in my wildest dreams, I never imagined someone as wonderful as you.</p>
+            <p>I love you forever! ❤️</p>
+        </div>
+    </div>
+
+    <script>
+        // Falling Hearts Background
+        function createHeart() {
+            const container = document.getElementById('hearts-container');
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            heart.innerHTML = ['❤️', '💖', '💗', '💕'][Math.floor(Math.random() * 4)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            heart.style.opacity = Math.random();
+            container.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 400);
+
+        function nextScreen(screenId) {
+            const containers = document.querySelectorAll('.container');
+            containers.forEach(div => {
+                div.style.opacity = '0';
+                setTimeout(() => div.classList.add('hidden'), 300);
+            });
+            
+            setTimeout(() => {
+                const next = document.getElementById(screenId);
+                next.classList.remove('hidden');
+                setTimeout(() => next.style.opacity = '1', 50);
+            }, 400);
+        }
+
+        function wrongAnswer() {
+            alert('අයියෝ.. වැරදියි මැණික! ආයෙත් හිතන්න 😜');
+        }
+
+        function checkDate() {
+            const selectedDate = document.getElementById('dateInput').value;
+            const correctDate = "2025-10-16"; 
+
+            if (selectedDate === correctDate) {
+                nextScreen('screen-proposal');
+            } else if (selectedDate === "") {
+                alert('කෝ තාම දවසක් තේරුවේ නෑනේ! 🙄');
+            } else {
+                alert('අයියෝ.. මතක නැද්ද? ආයෙත් ට්‍රයි කරන්න! ❌');
+            }
+        }
+
+        let fillTimeout;
+        function startFilling() {
+            document.getElementById('main-heart').classList.add('filling');
+            fillTimeout = setTimeout(() => {
+                nextScreen('screen-letter');
+            }, 2000); // 2 seconds to fill
+        }
+
+        function stopFilling() {
+            document.getElementById('main-heart').classList.remove('filling');
+            clearTimeout(fillTimeout);
+        }
+    </script>
+
+</body>
+</html>
