@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Pani Bindu 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --dark: #590d22;
+            --light: #fff0f3;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Falling Hearts Animation Background */
+        .bg-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart-particle {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.6);
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        /* Main Card Container */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 400px;
+            z-index: 10;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            color: var(--primary);
+            font-size: 3rem;
+            margin: 0 0 10px 0;
+        }
+
+        p {
+            color: #555;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Buttons */
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background: #d63384;
+        }
+
+        /* Quiz Styles */
+        .quiz-btn {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .quiz-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Photo Area */
+        .photo-frame {
+            width: 100%;
+            height: 200px;
+            background-color: #eee;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            background-image: url('https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'); /* Default Romantic Image */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Music Player Visualization (Simple) */
+        .music-bars {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 30px;
+            margin-bottom: 20px;
+        }
+        .bar {
+            width: 5px;
+            background: var(--primary);
+            margin: 0 3px;
+            animation: bounce 1s infinite;
+        }
+        .bar:nth-child(2) { animation-duration: 0.8s; }
+        .bar:nth-child(3) { animation-duration: 1.2s; }
+        .bar:nth-child(4) { animation-duration: 0.9s; }
+
+        @keyframes bounce {
+            0%, 100% { height: 5px; }
+            50% { height: 25px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="bg-hearts" id="heartsContainer"></div>
+
+    <div class="card" id="screen1">
+        <h1>Hello My Love!</h1>
+        <p>I have a special surprise for you.</p>
+        <p style="font-size: 0.9rem; color: #888;">(Turn up your volume 🔊)</p>
+        <button class="btn" onclick="startExperience()">Tap to Begin ❤️</button>
+    </div>
+
+    <div class="card hidden" id="screen2">
+        <div class="music-bars">
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        </div>
+        <div class="photo-frame" style="background-image: url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')"></div>
+        <h2>Do you hear that?</h2>
+        <p>This song reminds me of you...<br><i>"Pani Bindak"</i></p>
+        <button class="btn" onclick="nextScreen(3)">Yes, it's beautiful ✨</button>
+    </div>
+
+    <div class="card hidden" id="screen3">
+        <h2>Quick Question! 🧐</h2>
+        <p>What is my favorite thing about you?</p>
+        <button class="quiz-btn" onclick="wrongAnswer()">Your cooking 🍳</button>
+        <button class="quiz-btn" onclick="correctAnswer()">Your Smile 😊</button>
+        <button class="quiz-btn" onclick="wrongAnswer()">Your money 💰</button>
+    </div>
+
+    <div class="card hidden" id="screen4">
+        <div class="photo-frame" style="background-image: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')"></div>
+        <h1>Will You...</h1>
+        <p>Be my Valentine today and forever?</p>
+        <button class="btn" onclick="sheSaidYes()">YES! 💖</button>
+        <br><br>
+        <button class="btn" style="background-color: #ccc; font-size: 0.8rem;" onclick="alert('Wrong button! Try the pink one 😜')">No</button>
+    </div>
+
+    <div class="card hidden" id="screen5">
+        <h1>I Knew It! 🎉</h1>
+        <p>You make my world brighter.</p>
+        <p>Happy Valentine's Day!</p>
+        <p style="font-family: 'Great Vibes'; font-size: 2rem;">Love, Shyamal</p>
+    </div>
+
+    <script>
+        // Generate floating hearts
+        const heartsContainer = document.getElementById('heartsContainer');
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heartsContainer.appendChild(heart);
+            setTimeout(() => { heart.remove() }, 5000);
+        }
+        setInterval(createHeart, 300);
+
+        // Interaction Functions
+        function startExperience() {
+            const music = document.getElementById('bgMusic');
+            music.volume = 0.5;
+            music.play().catch(error => {
+                console.log("Autoplay prevented, interaction needed");
+            });
+            nextScreen(2);
+        }
+
+        function nextScreen(num) {
+            // Hide all screens
+            document.querySelectorAll('.card').forEach(el => el.classList.add('hidden'));
+            // Show target screen
+            document.getElementById('screen' + num).classList.remove('hidden');
+        }
+
+        function wrongAnswer() {
+            alert("Aiyoooo! Try again baba! 😜");
+        }
+
+        function correctAnswer() {
+            nextScreen(4);
+        }
+
+        function sheSaidYes() {
+            nextScreen(5);
+            // Trigger confetti effect (simulated with more hearts)
+            setInterval(createHeart, 100);
+        }
+    </script>
+</body>
+</html>
